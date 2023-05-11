@@ -26,3 +26,8 @@ export const fetchItems = async () => {
         throw error;
     }
 };
+
+export async function registerUser({ name, password, email }) {
+    const response = await apiClient.post('/register', { name, password, email });
+    return response.data;
+}

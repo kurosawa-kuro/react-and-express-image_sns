@@ -1,6 +1,9 @@
-// Path: full-stack-basic\react-and-express-image_sns\frontend\src\pages\Register.js
+// Path: frontend/src/pages/Register.js
 
 import React, { useState } from 'react';
+import { useMutation } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
+import { registerUser } from '../services/api';
 import '../styles/App.css';
 
 const Registration = () => {
@@ -8,19 +11,28 @@ const Registration = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const navigate = useNavigate();
+
+    const mutation = useMutation(registerUser, {
+        onSuccess: () => {
+            // Clear form data
+            setName('');
+            setEmail('');
+            setPassword('');
+            setError('');
+            navigate('/');
+        },
+        onError: (error) => {
+            setError(error.message);
+        }
+    });
 
     const handleSubmit = (event) => {
         event.preventDefault();
         if (!name || !email || !password) {
             setError('Please fill out all fields');
         } else {
-            // Send form data to server
-            console.log('Form data:', { name, email, password });
-            // Clear form data
-            setName('');
-            setEmail('');
-            setPassword('');
-            setError('');
+            mutation.mutate({ name, email, password });
         }
     };
 
@@ -59,8 +71,9 @@ const Registration = () => {
                     />
                 </div>
                 {error && <div className="error">{error}</div>}
-                <button type="submit">Submit</button>
+                <button type="submit" disabled={mutation.isLoading}>Submit</button>
             </form>
+            {mutation.isSuccess && <div>User successfully registered!</div>}
         </div>
     );
 };
