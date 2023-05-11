@@ -2,8 +2,8 @@
 
 import React, { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
-import { useNavigate } from 'react-router-dom';
 import { registerUser } from '../services/api';
+import { useNavigate } from 'react-router-dom';
 import '../styles/App.css';
 
 const Registration = () => {
@@ -11,6 +11,7 @@ const Registration = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+
     const navigate = useNavigate();
 
     const mutation = useMutation(registerUser, {
@@ -20,10 +21,11 @@ const Registration = () => {
             setEmail('');
             setPassword('');
             setError('');
-            navigate('/');
+            navigate('/');  // 登録成功時にホームページへ遷移
         },
         onError: (error) => {
-            setError(error.message);
+            // サーバーからのエラーメッセージを取り出して設定
+            setError(error.response.data.error);
         }
     });
 
