@@ -1,15 +1,10 @@
 // src/pages/Home.js
-import React from 'react';
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
 
-const fetchPosts = async () => {
-    const { data } = await axios.get('http://localhost:8080/posts');
-    return data;
-};
+import React from 'react';
+import { useFetchPosts } from '../services/api';
 
 const Home = () => {
-    const { data: posts, isLoading, isError } = useQuery(['posts'], fetchPosts);
+    const { data: posts, isLoading, isError } = useFetchPosts();
 
     if (isLoading) return <div>Loading...</div>;
     if (isError) return <div>Error occurred while fetching posts.</div>;
