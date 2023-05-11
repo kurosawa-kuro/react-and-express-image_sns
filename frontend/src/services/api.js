@@ -31,3 +31,31 @@ export async function registerUser({ name, password, email }) {
     const response = await apiClient.post('/register', { name, password, email });
     return response.data;
 }
+
+export const fetchPosts = async () => {
+    try {
+        const response = await apiClient.get("/posts");
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching posts:", error);
+        throw error;
+    }
+};
+
+export const createPost = async (postData) => {
+    try {
+        const formData = new FormData();
+        for (const key in postData) {
+            formData.append(key, postData[key]);
+        }
+        const response = await apiClient.post("/posts", formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error("Error creating post:", error);
+        throw error;
+    }
+};
