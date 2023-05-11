@@ -41,21 +41,3 @@ export const fetchPosts = async () => {
         throw error;
     }
 };
-
-export const createPost = async (postData) => {
-    try {
-        const formData = new FormData();
-        for (const key in postData) {
-            formData.append(key, postData[key]);
-        }
-        const response = await apiClient.post("/posts", formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        });
-        return response.data;
-    } catch (error) {
-        console.error("Error creating post:", error);
-        throw error;
-    }
-};
