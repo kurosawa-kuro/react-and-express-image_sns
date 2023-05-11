@@ -1,6 +1,7 @@
 // backend/src/app/index.js
 import express from "express";
 import cors from "cors";
+import userRoutes from "./routes/usersRoute.js";
 import itemRoutes from "./routes/itemsRoute.js";
 
 const app = express();
@@ -16,6 +17,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 // Set up item routes
+userRoutes(app);
 itemRoutes(app);
 
 export default app;
