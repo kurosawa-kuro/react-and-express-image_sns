@@ -1,8 +1,8 @@
 // Path: frontend/src/pages/Write.js
 
 import React, { useState } from 'react';
-import { useCreatePost } from '../services/api';
 import { useNavigate } from 'react-router-dom';
+import { useCreatePost } from '../services/api';
 
 const Write = () => {
     const [title, setTitle] = useState('');

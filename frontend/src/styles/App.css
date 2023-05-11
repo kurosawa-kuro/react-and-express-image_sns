@@ -47,6 +47,7 @@ h2 {
   font-size: 36px;
   color: var(--secondary-text-color);
   line-height: 1.333;
+  margin-bottom: 10px;
 }
 
 h3 {
@@ -128,5 +129,15 @@ nav ul li {
 
 img {
   height: 150px;
+}
 
+.post {
+  background-color: var(--main-bg-color);
+  margin-bottom: 10px;
+  padding: 20px;
+}
+
+.post-info {
+  display: flex;
+  gap: 10px;
 }

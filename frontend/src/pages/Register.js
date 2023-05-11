@@ -1,8 +1,8 @@
 // Path: frontend/src/pages/Register.js
 
 import React, { useState } from 'react';
-import { useRegisterUser } from '../services/api';
 import { useNavigate } from 'react-router-dom';
+import { useRegisterUser } from '../services/api';
 import '../styles/App.css';
 
 const Registration = () => {

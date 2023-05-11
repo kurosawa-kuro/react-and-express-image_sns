@@ -13,10 +13,12 @@ const Home = () => {
         <div>
             <h1>Posts</h1>
             {posts.map((post) => (
-                <div key={post.id}>
+                <div className='post' key={post.id}>
                     <h2>{post.title}</h2>
-                    <img src={"http://localhost:8080/uploads/" + post.image} alt={post.title} />
-                    <p>{post.comment}</p>
+                    <div className='post-info'>
+                        <img src={"http://localhost:8080/uploads/" + post.image} alt={post.title} />
+                        <p>{post.comment}</p>
+                    </div>
                 </div>
             ))}
         </div>
