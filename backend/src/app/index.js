@@ -4,6 +4,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import userRoutes from "./routes/usersRoute.js";
 import itemRoutes from "./routes/itemsRoute.js";
+import postRoutes from "./routes/postsRoute.js";
 
 const app = express();
 
@@ -22,6 +23,7 @@ app.use(express.json());
 
 // Set up item routes
 userRoutes(app);
+postRoutes(app);
 itemRoutes(app);
 
 export default app;
