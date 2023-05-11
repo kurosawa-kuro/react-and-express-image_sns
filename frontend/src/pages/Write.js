@@ -1,12 +1,13 @@
 // Path: frontend/src/pages/Write.js
 
 import React, { useState } from 'react';
-import { createPost } from '../services/api';
+import { useCreatePost } from '../services/api';
 
 const Write = () => {
     const [title, setTitle] = useState('');
     const [image, setImage] = useState(null);
     const [comment, setComment] = useState('');
+    const createPost = useCreatePost();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -17,13 +18,15 @@ const Write = () => {
 
         // userIdはログインシステムに基づいて変更してください
         formData.append('userId', 1);
-        const response = await createPost(formData);
-        if (response.status === 201) {
-            // 投稿が成功したらホーム画面にリダイレクト
-            window.location.replace("/");
-        } else {
-            console.error("Post creation failed");
-        }
+        createPost.mutate(formData, {
+            onSuccess: () => {
+                // 投稿が成功したらホーム画面にリダイレクト
+                window.location.replace("/");
+            },
+            onError: () => {
+                console.error("Post creation failed");
+            }
+        });
     };
 
     return (

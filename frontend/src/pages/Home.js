@@ -20,7 +20,7 @@ const Home = () => {
             {posts.map((post) => (
                 <div key={post.id}>
                     <h2>{post.title}</h2>
-                    <img src={post.image} alt={post.title} />
+                    <img src={"http://localhost:8080/uploads/" + post.image} alt={post.title} />
                     <p>{post.comment}</p>
                 </div>
             ))}
