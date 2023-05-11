@@ -2,14 +2,18 @@
 
 import React, { useState } from 'react';
 import { useCreatePost } from '../services/api';
+import { useNavigate } from 'react-router-dom';
 
 const Write = () => {
     const [title, setTitle] = useState('');
     const [image, setImage] = useState(null);
     const [comment, setComment] = useState('');
+    const [error, setError] = useState('');
+
+    const navigate = useNavigate();
     const createPost = useCreatePost();
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         const formData = new FormData();
         formData.append('title', title);
@@ -18,13 +22,19 @@ const Write = () => {
 
         // userIdはログインシステムに基づいて変更してください
         formData.append('userId', 1);
+
         createPost.mutate(formData, {
             onSuccess: () => {
-                // 投稿が成功したらホーム画面にリダイレクト
-                window.location.replace("/");
+                // Clear form data
+                setTitle('');
+                setImage(null);
+                setComment('');
+                setError('');
+                navigate('/');  // 投稿成功時にホームページへ遷移
             },
-            onError: () => {
-                console.error("Post creation failed");
+            onError: (error) => {
+                // サーバーからのエラーメッセージを取り出して設定
+                setError(error.response.data.error);
             }
         });
     };
@@ -36,8 +46,10 @@ const Write = () => {
                 <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Title" required />
                 <input type="file" onChange={(e) => setImage(e.target.files[0])} required />
                 <textarea value={comment} onChange={(e) => setComment(e.target.value)} placeholder="Comment" required />
-                <button type="submit">Submit</button>
+                {error && <div className="error">{error}</div>}
+                <button type="submit" disabled={createPost.isLoading}>Submit</button>
             </form>
+            {createPost.isSuccess && <div>Post successfully created!</div>}
         </div>
     );
 };
