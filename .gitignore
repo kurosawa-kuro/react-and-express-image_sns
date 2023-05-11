@@ -1,1 +1,4 @@
 backend/uploads/*
+backend/src/app/uploads/*
+uploads/*
+frontend/uploads/*
