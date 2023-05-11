@@ -3,8 +3,6 @@ import { setupDatabaseForOperations } from "./operations/prepareDatabase.js";
 
 async function main() {
   await setupDatabaseForOperations();
-
-
 }
 
 main()
