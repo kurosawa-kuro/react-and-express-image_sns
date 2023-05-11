@@ -1,3 +1,5 @@
+// Path: full-stack-basic\react-and-express-image_sns\frontend\src\pages\Register.js
+
 import React from 'react';
 import ItemsList from "../components/ItemsList";
 

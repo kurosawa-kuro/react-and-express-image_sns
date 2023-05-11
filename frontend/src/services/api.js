@@ -1,4 +1,5 @@
-// src/api.js
+// Path: full-stack-basic\react-and-express-image_sns\frontend\src\pages\Register.js
+
 import axios from "axios";
 
 const apiClient = axios.create({
