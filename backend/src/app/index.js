@@ -2,11 +2,17 @@
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import path from 'path';
+import { fileURLToPath } from 'url';
 import userRoutes from "./routes/usersRoute.js";
 import itemRoutes from "./routes/itemsRoute.js";
 import postRoutes from "./routes/postsRoute.js";
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
 const app = express();
+
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Configure CORS settings to allow requests only from localhost:3000
 const corsOptions = {
