@@ -12,7 +12,7 @@ async function establishDatabaseConnection() {
 
 async function clearPostTagTable() {
     try {
-        await db.postTag.deleteMany({});
+        await db.$queryRaw`Truncate PostTag;`
         console.log("Cleared post tag table.");
     } catch (e) {
         console.error("Failed to clear post tag table:", e);
@@ -22,7 +22,7 @@ async function clearPostTagTable() {
 
 async function clearPostTable() {
     try {
-        await db.post.deleteMany({});
+        await db.$queryRaw`Truncate Post;`
         console.log("Cleared post table.");
     } catch (e) {
         console.error("Failed to clear post table:", e);
@@ -32,7 +32,7 @@ async function clearPostTable() {
 
 async function clearUserTable() {
     try {
-        await db.user.deleteMany({});
+        await db.$queryRaw`Truncate User;`
         console.log("Cleared user table.");
     } catch (e) {
         console.error("Failed to clear user table:", e);
@@ -42,7 +42,7 @@ async function clearUserTable() {
 
 async function clearCommentTable() {
     try {
-        await db.comment.deleteMany({});
+        await db.$queryRaw`Truncate Comment;`
         console.log("Cleared comment table.");
     } catch (e) {
         console.error("Failed to clear comment table:", e);
@@ -52,7 +52,7 @@ async function clearCommentTable() {
 
 async function clearTagTable() {
     try {
-        await db.tag.deleteMany({});
+        await db.$queryRaw`Truncate Tag;`
         console.log("Cleared tag table.");
     } catch (e) {
         console.error("Failed to clear tag table:", e);
@@ -62,7 +62,7 @@ async function clearTagTable() {
 
 async function clearUserFollowerTable() {
     try {
-        await db.UserFollower.deleteMany({});
+        await db.$queryRaw`Truncate UserFollower;`
         console.log("Cleared UserFollower table.");
     } catch (e) {
         console.error("Failed to clear UserFollower table:", e);
