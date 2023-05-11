@@ -15,3 +15,23 @@ export async function getUserByEmail(email) {
     const user = await db.user.findUnique({ where: { email } });
     return user;
 };
+
+export async function loginUser(email, password) {
+    if (!email || !password) {
+        throw new Error("Email and password are required");
+    }
+
+    // Check if user exists
+    const existingUser = await getUserByEmail(email);
+    if (!existingUser) {
+        throw new Error("User does not exist");
+    }
+
+    // Check if password is correct
+    const isPasswordCorrect = await bcyptjs.compare(password, existingUser.password);
+    if (!isPasswordCorrect) {
+        throw new Error("Password is incorrect");
+    }
+
+    return existingUser;
+}
