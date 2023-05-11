@@ -1,7 +1,7 @@
 // Path: backend/src/app/routes/postsRoute.js
 
 import asyncHandler from "express-async-handler";
-import upload from "../middlewares/upload.js";
+import upload from "../middlewares/uploadMiddelware.js";
 import { getAllPostsController, createNewPostController } from "../controllers/postController.js";
 
 const postRoutes = (app) => {
