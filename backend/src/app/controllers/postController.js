@@ -9,9 +9,10 @@ export const getAllPostsController = asyncHandler(async (req, res) => {
 });
 
 export const createNewPostController = asyncHandler(async (req, res) => {
+
     const newPostData = {
         ...req.body,
-        image: req.file.path
+        image: req.file.filename
     };
     const newPost = await createNewPost(newPostData);
     res.status(201).json(newPost);
