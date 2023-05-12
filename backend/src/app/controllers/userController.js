@@ -19,19 +19,19 @@ export const registerUserController = asyncHandler(async (req, res) => {
             return;
         }
 
-        const user = await createUser({ name, password, email, isAdmin });
+        const createdUser = await createUser({ name, password, email, isAdmin });
 
         // Generate a JWT
         const token = jwt.sign(
-            { id: user.id, name: user.name, email: user.email },
+            { id: createdUser.id, name: createdUser.name, email: createdUser.email },
             process.env.JWT_SECRET,
             { expiresIn: "1d" }
         );
 
         // Exclude password from the response
-        const userResponse = { id: user.id, name: user.name, email: user.email };
+        const user = { id: createdUser.id, name: createdUser.name, email: createdUser.email };
 
-        res.status(201).json({ message: "User created", user: userResponse, token: token });
+        res.status(201).json({ message: "User created", user, token });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -46,21 +46,21 @@ export const loginUserController = asyncHandler(async (req, res) => {
     }
 
     try {
-        const user = await loginUser(email, password);
-        if (user) {
+        const loggedInUser = await loginUser(email, password);
+        if (loggedInUser) {
             // Generate a JWT
             const token = jwt.sign(
-                { id: user.id, name: user.name, email: user.email },
+                { id: loggedInUser.id, name: loggedInUser.name, email: loggedInUser.email },
                 process.env.JWT_SECRET,
                 { expiresIn: "1d" }
             );
 
             // Exclude password from the response
-            const userResponse = { id: user.id, name: user.name, email: user.email };
+            const user = { id: loggedInUser.id, name: loggedInUser.name, email: loggedInUser.email };
 
             // Save the JWT in a cookie
             res.cookie("token", token, { httpOnly: true });
-            res.status(200).json({ message: "Logged in successfully", user: userResponse, token: token });
+            res.status(200).json({ message: "Logged in successfully", user, token });
         } else {
             res.status(400).json({ error: "Invalid email or password" });
         }
@@ -93,16 +93,16 @@ export const getUserController = asyncHandler(async (req, res) => {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         console.log({ decoded });
         // Get the user from the database
-        const user = await getUserById(decoded.id);
-        console.log({ user });
-        if (!user) {
+        const foundUser = await getUserById(decoded.id);
+        console.log({ foundUser });
+        if (!foundUser) {
             res.status(404).json({ error: "User not found" });
             return;
         }
         // Exclude password from the response
-        const userResponse = { id: user.id, name: user.name, email: user.email };
+        const user = { id: foundUser.id, name: foundUser.name, email: foundUser.email };
 
-        res.status(200).json({ userResponse });
+        res.status(200).json({ user });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
