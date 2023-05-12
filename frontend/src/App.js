@@ -17,16 +17,6 @@ import { fetchUserData } from './services/api';
 
 const App = () => {
   const setUser = useStore(state => state.setUser);
-  // const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   // 初回レンダリング時にlocalStorageからトークンを取得し、ログイン状態を復元
-  //   const token = localStorage.getItem('token');
-  //   if (token) {
-  //     // トークンが存在する場合、ログイン状態をセット
-  //     setUser({ name: 'test' });
-  //   }
-  // }, []);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -35,13 +25,13 @@ const App = () => {
         if (response.user && response.user.name) {
           setUser({ name: response.user.name });
         } else {
-          // ユーザー情報の取得に失敗した場合はログインページにリダイレクト
-          // navigate('/login');
+          // ユーザー情報の取得に失敗した場合はnavigateを使わずに、ログインページにリダイレクト
+          window.location.href = '/login';
         }
       } catch (error) {
         console.error('Error fetching user data:', error);
         // エラーが発生した場合もログインページにリダイレクト
-        // navigate('/login');
+        // window.location.href = '/login';
       }
     };
 
