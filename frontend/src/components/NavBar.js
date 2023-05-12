@@ -32,15 +32,21 @@ const NavBar = () => {
                 <li>
                     <Link to="">{user ? user.name : 'User Name'}</Link>
                 </li>
-                <li>
-                    <Link to="/register">Register</Link>
-                </li>
-                <li>
-                    <Link to="/login">Login</Link>
-                </li>
-                <li>
-                    <Link to="/" onClick={logout}>Logout</Link>
-                </li>
+                {!user && ( // Only show Register and Login links when not logged in
+                    <>
+                        <li>
+                            <Link to="/register">Register</Link>
+                        </li>
+                        <li>
+                            <Link to="/login">Login</Link>
+                        </li>
+                    </>
+                )}
+                {user && ( // Only show Logout link when logged in
+                    <li>
+                        <Link to="/" onClick={logout}>Logout</Link>
+                    </li>
+                )}
                 <li>
                     <Link to="/information">Information</Link>
                 </li>
