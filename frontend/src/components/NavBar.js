@@ -2,15 +2,19 @@
 
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+import useStore from '../store'
 
 const NavBar = () => {
     const navigate = useNavigate();
+    const user = useStore(state => state.user)
+    const setUser = useStore(state => state.setUser);
 
     const logout = (event) => {
         event.preventDefault();
 
         // Remove the token from localStorage
         localStorage.removeItem('token');
+        setUser(null)
 
         // Redirect the user to the login page
         navigate('/login');
@@ -26,7 +30,7 @@ const NavBar = () => {
                     <Link to="/write">Write</Link>
                 </li>
                 <li>
-                    <Link to="">User Name</Link>
+                    <Link to="">{user ? user.name : 'User Name'}</Link>
                 </li>
                 <li>
                     <Link to="/register">Register</Link>

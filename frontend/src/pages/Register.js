@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import useStore from '../store'
 import { useRegisterUser } from '../services/api';
 import '../styles/App.css';
 
@@ -11,6 +12,7 @@ const Registration = () => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
+    const setUser = useStore(state => state.setUser)
     const navigate = useNavigate();
 
     const mutation = useRegisterUser();
@@ -22,6 +24,7 @@ const Registration = () => {
         } else {
             mutation.mutate({ name, email, password }, {
                 onSuccess: (data) => {
+                    setUser({ name, email })
                     setName('');
                     setEmail('');
                     setPassword('');
