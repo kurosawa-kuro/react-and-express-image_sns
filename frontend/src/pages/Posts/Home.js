@@ -1,7 +1,7 @@
 // src/pages/Home.js
 
 import React from 'react';
-import { useFetchPosts } from '../services/api';
+import { useFetchPosts } from '../../services/api';
 
 const Home = () => {
     const { data: posts, isLoading, isError } = useFetchPosts();

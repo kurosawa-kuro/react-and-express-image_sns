@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQueryClient } from '@tanstack/react-query';
-import { useCreatePost } from '../services/api';
+import { useCreatePost } from '../../services/api';
 
 const Write = () => {
     const [title, setTitle] = useState('');

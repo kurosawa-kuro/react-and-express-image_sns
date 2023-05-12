@@ -1,13 +1,12 @@
-// Path: frontend/src/pages/Register.js
+// Path: frontend/src/pages/Login.js
 
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import useStore from '../store'
-import { useRegisterUser } from '../services/api';
-import '../styles/App.css';
+import useStore from '../../store'
+import { useLoginUser } from '../../services/api';
+import '../../styles/App.css';
 
-const Registration = () => {
-    const [name, setName] = useState('');
+const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -15,20 +14,19 @@ const Registration = () => {
     const setUser = useStore(state => state.setUser)
     const navigate = useNavigate();
 
-    const mutation = useRegisterUser();
+    const mutation = useLoginUser();
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        if (!name || !email || !password) {
+        if (!email || !password) {
             setError('Please fill out all fields');
         } else {
-            mutation.mutate({ name, email, password }, {
+            mutation.mutate({ email, password }, {
                 onSuccess: (data) => {
                     // Confirm that the returned data includes the user name
                     if (data.user && data.user.name) {
                         setUser({ name: data.user.name, email })
                     }
-                    setName('');
                     setEmail('');
                     setPassword('');
                     setError('');
@@ -36,7 +34,7 @@ const Registration = () => {
                     navigate('/');
                 },
                 onError: (error) => {
-                    setError(error.response ? error.response.data.error : 'Registration failed');
+                    setError(error.response ? error.response.data.error : 'Login failed');
                 }
             });
         }
@@ -44,18 +42,8 @@ const Registration = () => {
 
     return (
         <div className="container">
-            <h1>Registration</h1>
+            <h1>Login</h1>
             <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="name">Name:</label>
-                    <input
-                        type="text"
-                        id="name"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        placeholder="Enter your name"
-                    />
-                </div>
                 <div>
                     <label htmlFor="email">Email:</label>
                     <input
@@ -79,9 +67,9 @@ const Registration = () => {
                 {error && <div className="error">{error}</div>}
                 <button type="submit" disabled={mutation.isLoading}>Submit</button>
             </form>
-            {mutation.isSuccess && <div>User successfully registered!</div>}
+            {mutation.isSuccess && <div>Logged in successfully!</div>}
         </div>
     );
 };
 
-export default Registration;
+export default Login;

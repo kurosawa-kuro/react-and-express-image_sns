@@ -6,12 +6,12 @@ import "./styles/App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
-import Home from "./pages/Home";
-import Single from "./pages/Single";
-import Write from "./pages/Write";
+import Home from "./pages/Posts/Home";
+import Single from "./pages/Posts/Single";
+import Write from "./pages/Posts/Write";
 import Information from "./pages/Information";
-import Register from "./pages/Register";
-import Login from "./pages/Login";
+import Register from "./pages/Auth/Register";
+import Login from "./pages/Auth/Login";
 
 const App = () => {
   return (
