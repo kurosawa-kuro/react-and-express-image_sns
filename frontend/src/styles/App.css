@@ -82,6 +82,7 @@ button {
 
 input {
   border: 1px solid var(--input-border-color);
+  margin-top: 5px;
 }
 
 ::placeholder {
@@ -153,4 +154,10 @@ img {
 
 .button-link:hover {
   background-color: var(--button-hover-bg-color);
+}
+
+/* Add this new style */
+.button-link.inactive {
+  opacity: 0.3;
+  pointer-events: none;
 }

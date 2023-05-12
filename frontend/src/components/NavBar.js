@@ -29,9 +29,7 @@ const NavBar = () => {
                 <li>
                     <Link className="button-link" to="/write">Write</Link>
                 </li>
-                <li>
-                    <Link className="button-link" to="">{user ? user.name : 'User Name'}</Link>
-                </li>
+
                 {!user && ( // Only show Register and Login links when not logged in
                     <>
                         <li>
@@ -49,6 +47,12 @@ const NavBar = () => {
                 )}
                 <li>
                     <Link className="button-link" to="/information">Information</Link>
+                </li>
+
+                <li>
+                    <Link className={`button-link ${!user ? "inactive" : ""}`} to="">
+                        {user ? user.name : 'Not Log in'}
+                    </Link>
                 </li>
             </ul>
         </nav>
