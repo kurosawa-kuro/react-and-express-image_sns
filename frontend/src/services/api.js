@@ -37,3 +37,20 @@ export const loginUser = async ({ email, password }) => {
 export const useLoginUser = () => {
     return useMutation(loginUser);
 };
+
+// ユーザーデータを取得する関数
+export const fetchUserData = async () => {
+    const token = localStorage.getItem('token');
+
+    try {
+        const response = await apiClient.get("/me", {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+
+        return response.data;
+    } catch (error) {
+        throw new Error('Failed to fetch user data');
+    }
+};
