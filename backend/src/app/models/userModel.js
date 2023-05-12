@@ -35,3 +35,12 @@ export async function loginUser(email, password) {
 
     return existingUser;
 }
+
+// getUserById
+export async function getUserById(id) {
+    if (!id) {
+        throw new Error("ID is required");
+    }
+
+    return await db.user.findUnique({ where: { id } });
+}
