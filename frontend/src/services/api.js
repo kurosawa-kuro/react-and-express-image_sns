@@ -28,3 +28,12 @@ export const useFetchPosts = () => {
 export const useCreatePost = () => {
     return useMutation(formData => apiClient.post("/posts", formData));
 };
+
+export const loginUser = async ({ email, password }) => {
+    const { data } = await apiClient.post("/login", { email, password });
+    return data;
+};
+
+export const useLoginUser = () => {
+    return useMutation(loginUser);
+};
