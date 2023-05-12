@@ -24,7 +24,10 @@ const Registration = () => {
         } else {
             mutation.mutate({ name, email, password }, {
                 onSuccess: (data) => {
-                    setUser({ name, email })
+                    // Confirm that the returned data includes the user name
+                    if (data.user && data.user.name) {
+                        setUser({ name: data.user.name, email })
+                    }
                     setName('');
                     setEmail('');
                     setPassword('');
@@ -33,7 +36,7 @@ const Registration = () => {
                     navigate('/');
                 },
                 onError: (error) => {
-                    setError(error.response.data.error);
+                    setError(error.response ? error.response.data.error : 'Registration failed');
                 }
             });
         }

@@ -23,16 +23,18 @@ const Login = () => {
         } else {
             mutation.mutate({ email, password }, {
                 onSuccess: (data) => {
-                    setUser({ name: data.user.name, email })
+                    // Confirm that the returned data includes the user name
+                    if (data.user && data.user.name) {
+                        setUser({ name: data.user.name, email })
+                    }
                     setEmail('');
                     setPassword('');
                     setError('');
-                    // Save the JWT in local storage
                     localStorage.setItem('token', data.token);
                     navigate('/');
                 },
                 onError: (error) => {
-                    setError(error.response.data.error);
+                    setError(error.response ? error.response.data.error : 'Login failed');
                 }
             });
         }
