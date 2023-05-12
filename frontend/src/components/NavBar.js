@@ -24,31 +24,31 @@ const NavBar = () => {
         <nav>
             <ul>
                 <li>
-                    <Link to="/">Home</Link>
+                    <Link className="button-link" to="/">Home</Link>
                 </li>
                 <li>
-                    <Link to="/write">Write</Link>
+                    <Link className="button-link" to="/write">Write</Link>
                 </li>
                 <li>
-                    <Link to="">{user ? user.name : 'User Name'}</Link>
+                    <Link className="button-link" to="">{user ? user.name : 'User Name'}</Link>
                 </li>
                 {!user && ( // Only show Register and Login links when not logged in
                     <>
                         <li>
-                            <Link to="/register">Register</Link>
+                            <Link className="button-link" to="/register">Register</Link>
                         </li>
                         <li>
-                            <Link to="/login">Login</Link>
+                            <Link className="button-link" to="/login">Login</Link>
                         </li>
                     </>
                 )}
                 {user && ( // Only show Logout link when logged in
                     <li>
-                        <Link to="/" onClick={logout}>Logout</Link>
+                        <Link className="button-link" to="/" onClick={logout}>Logout</Link>
                     </li>
                 )}
                 <li>
-                    <Link to="/information">Information</Link>
+                    <Link className="button-link" to="/information">Information</Link>
                 </li>
             </ul>
         </nav>
