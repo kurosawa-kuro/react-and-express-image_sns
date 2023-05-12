@@ -16,27 +16,6 @@ import Login from "./pages/Auth/Login";
 import { fetchUserData } from './services/api';
 
 const App = () => {
-  const setUser = useStore(state => state.setUser);
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const response = await fetchUserData();
-        if (response.user && response.user.name) {
-          setUser({ name: response.user.name });
-        } else {
-          // ユーザー情報の取得に失敗した場合はnavigateを使わずに、ログインページにリダイレクト
-          window.location.href = '/login';
-        }
-      } catch (error) {
-        console.error('Error fetching user data:', error);
-        // エラーが発生した場合もログインページにリダイレクト
-        // window.location.href = '/login';
-      }
-    };
-
-    fetchUser();
-  }, []);
 
   return (
     <BrowserRouter>
