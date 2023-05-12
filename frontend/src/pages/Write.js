@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useQueryClient } from '@tanstack/react-query';
 import { useCreatePost } from '../services/api';
 
 const Write = () => {
@@ -12,6 +13,7 @@ const Write = () => {
 
     const navigate = useNavigate();
     const createPost = useCreatePost();
+    const queryClient = useQueryClient();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -30,6 +32,7 @@ const Write = () => {
                 setImage(null);
                 setComment('');
                 setError('');
+                queryClient.invalidateQueries(['posts']);
                 navigate('/');  // 投稿成功時にホームページへ遷移
             },
             onError: (error) => {
