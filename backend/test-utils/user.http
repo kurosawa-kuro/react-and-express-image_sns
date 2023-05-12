@@ -21,4 +21,9 @@ Content-Type: application/json
 ### Access a protected route
 ### Before sending this request, replace YOUR_TOKEN_HERE with the JWT you received when logging in.
 GET http://localhost:8080/protected
-Cookie: jwt="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTExLCJuYW1lIjoiVGVzdCBVc2VyIiwiZW1haWwiOiJ0ZXN0QGV4YW1wbGUuY29tIiwiaWF0IjoxNjgzNzg4OTE0LCJleHAiOjE2ODM4NzUzMTR9.-4JyYyc18kfClfra3ssiU2gkCNxut8ARdszJgdPjT2o"
+Cookie: jwt="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibmFtZSI6IlRlc3QgVXNlciIsImVtYWlsIjoidGVzdEBleGFtcGxlLmNvbSIsImlhdCI6MTY4Mzg5MDUxNiwiZXhwIjoxNjgzOTc2OTE2fQ.wnV2f_cVRdkNduhjjJRLS5CvRd8UAMlI-oUIqFjUCZw"
+
+###
+
+GET http://localhost:8080/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibmFtZSI6IlRlc3QgVXNlciIsImVtYWlsIjoidGVzdEBleGFtcGxlLmNvbSIsImlhdCI6MTY4Mzg5MDUxNiwiZXhwIjoxNjgzOTc2OTE2fQ.wnV2f_cVRdkNduhjjJRLS5CvRd8UAMlI-oUIqFjUCZw
