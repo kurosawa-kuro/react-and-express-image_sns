@@ -21,11 +21,12 @@ const Registration = () => {
             setError('Please fill out all fields');
         } else {
             mutation.mutate({ name, email, password }, {
-                onSuccess: () => {
+                onSuccess: (data) => {
                     setName('');
                     setEmail('');
                     setPassword('');
                     setError('');
+                    localStorage.setItem('token', data.token);
                     navigate('/');
                 },
                 onError: (error) => {

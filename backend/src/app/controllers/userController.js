@@ -19,8 +19,16 @@ export const registerUserController = asyncHandler(async (req, res) => {
             return;
         }
 
-        await createUser({ name, password, email, isAdmin });
-        res.status(201).json({ message: "User created" });
+        const user = await createUser({ name, password, email, isAdmin });
+
+        // Generate a JWT
+        const token = jwt.sign(
+            { id: user.id, name: user.name, email: user.email },
+            process.env.JWT_SECRET,
+            { expiresIn: "1d" }
+        );
+
+        res.status(201).json({ message: "User created", user: user, token: token });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
