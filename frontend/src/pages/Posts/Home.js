@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { useFetchPosts } from '../../hooks/useFetchPosts';
-// import { useRegisterUser } from '../../hooks/useRegisterUser';
 import useStore from '../../state/store';
 import useFlashMessage from '../../hooks/useFlashMessage';
 
