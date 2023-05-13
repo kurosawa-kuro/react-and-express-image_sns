@@ -161,3 +161,13 @@ img {
   opacity: 0.3;
   pointer-events: none;
 }
+
+.flash-message {
+  padding: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  color: white;
+  background-color: green;
+  text-align: center;
+  border-radius: 5px;
+}

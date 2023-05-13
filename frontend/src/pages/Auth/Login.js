@@ -12,6 +12,7 @@ const Login = () => {
     const [error, setError] = useState('');
 
     const setUser = useStore(state => state.setUser)
+    const setFlashMessage = useStore(state => state.setFlashMessage) // フラッシュメッセージを設定する関数を取得
     const navigate = useNavigate();
 
     const mutation = useLoginUser();
@@ -23,13 +24,13 @@ const Login = () => {
         } else {
             mutation.mutate({ email, password }, {
                 onSuccess: (data) => {
-                    // Confirm that the returned data includes the user name
                     if (data.user && data.user.name) {
                         setUser({ name: data.user.name, email })
                     }
                     setEmail('');
                     setPassword('');
                     setError('');
+                    setFlashMessage('Logged in successfully!'); // ログイン成功時にフラッシュメッセージをセット
                     localStorage.setItem('token', data.token);
                     navigate('/');
                 },
@@ -67,7 +68,6 @@ const Login = () => {
                 {error && <div className="error">{error}</div>}
                 <button type="submit" disabled={mutation.isLoading}>Submit</button>
             </form>
-            {mutation.isSuccess && <div>Logged in successfully!</div>}
         </div>
     );
 };
