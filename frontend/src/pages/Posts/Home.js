@@ -11,12 +11,11 @@ const Home = () => {
     const setCurrentPage = useStore(state => state.setCurrentPage);
     const totalPages = useStore(state => state.totalPages);
     const setTotalPages = useStore(state => state.setTotalPages);
-    const flashMessage = useStore(state => state.flashMessage);
     const search = useStore(state => state.search);
     const setSearch = useStore(state => state.setSearch);
     const isAuthenticated = useUserAuthentication();
     const { data, isLoading, isError } = useFetchPosts(currentPage, search, isAuthenticated);
-    useFlashMessage();
+    const flashMessage = useFlashMessage();
 
     useEffect(() => {
         if (data) {

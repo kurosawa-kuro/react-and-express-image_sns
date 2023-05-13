@@ -17,6 +17,8 @@ const useFlashMessage = (timeout = 3000) => {
 
         return () => clearTimeout(timer); // cleanup function
     }, [flashMessage, setFlashMessage, timeout]);
+
+    return flashMessage; // return the flashMessage state
 };
 
 export default useFlashMessage;
