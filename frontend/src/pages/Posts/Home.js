@@ -3,18 +3,15 @@
 import React, { useEffect } from 'react';
 import { useFetchPosts } from '../../services/api';
 import useStore from '../../state/store';
-import { useNavigate } from 'react-router-dom';
 import useUserAuthentication from '../../hooks/useUserAuthentication';
 import useFlashMessage from '../../hooks/useFlashMessage';
 
 const Home = () => {
-    const navigate = useNavigate();
     const currentPage = useStore(state => state.currentPage);
     const setCurrentPage = useStore(state => state.setCurrentPage);
     const totalPages = useStore(state => state.totalPages);
     const setTotalPages = useStore(state => state.setTotalPages);
     const flashMessage = useStore(state => state.flashMessage);
-    const setFlashMessage = useStore(state => state.setFlashMessage);
     const search = useStore(state => state.search);
     const setSearch = useStore(state => state.setSearch);
     const isAuthenticated = useUserAuthentication();
@@ -25,7 +22,7 @@ const Home = () => {
         if (data) {
             setTotalPages(data.totalPages);
         }
-    }, [flashMessage, setFlashMessage, data, setTotalPages, navigate]);
+    }, [data, setTotalPages]);
 
     const handlePrevious = () => {
         if (currentPage > 1) {
