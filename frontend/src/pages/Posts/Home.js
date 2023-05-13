@@ -1,6 +1,6 @@
 // src/pages/Home.js
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useFetchPosts } from '../../services/api';
 import useStore from '../../state/store';
 import useFlashMessage from '../../hooks/useFlashMessage';
@@ -9,17 +9,10 @@ const Home = () => {
     const currentPage = useStore(state => state.currentPage);
     const setCurrentPage = useStore(state => state.setCurrentPage);
     const totalPages = useStore(state => state.totalPages);
-    const setTotalPages = useStore(state => state.setTotalPages);
     const search = useStore(state => state.search);
     const setSearch = useStore(state => state.setSearch);
     const { data, isLoading, isError } = useFetchPosts(currentPage, search); // remove isAuthenticated
     const flashMessage = useFlashMessage();
-
-    useEffect(() => {
-        if (data) {
-            setTotalPages(data.totalPages);
-        }
-    }, [data, setTotalPages]);
 
     const handlePrevious = () => {
         if (currentPage > 1) {

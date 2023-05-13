@@ -2,6 +2,7 @@
 
 import axios from "axios";
 import { useQuery, useMutation } from '@tanstack/react-query';
+import useStore from '../state/store';
 import useUserAuthentication from '../hooks/useUserAuthentication'; // import the hook
 
 
@@ -34,11 +35,16 @@ export const fetchPosts = async (page = 1, search = '') => {
     return data;
 };
 
-export const useFetchPosts = (currentPage, search) => { // remove isAuthenticated from parameters
-    const isAuthenticated = useUserAuthentication(); // get isAuthenticated inside the hook
+export const useFetchPosts = (currentPage, search) => {
+    const isAuthenticated = useUserAuthentication();
+    const setTotalPages = useStore(state => state.setTotalPages); // get the setter for totalPages
 
     return useQuery(['posts', currentPage, search], () => fetchPosts(currentPage, search), {
-        enabled: isAuthenticated,  // ログインしている場合のみフックが動作する
+        enabled: isAuthenticated,
+        onSuccess: (data) => {
+            // When the fetch is successful, automatically save the totalPages to the state
+            setTotalPages(data.totalPages);
+        },
     });
 };
 
