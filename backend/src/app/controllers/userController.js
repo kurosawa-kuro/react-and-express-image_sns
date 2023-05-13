@@ -71,8 +71,6 @@ export const loginUserController = asyncHandler(async (req, res) => {
 
 // クライアントからのトークンを受け取り、デコードしてユーザーを返す
 export const getUserController = asyncHandler(async (req, res) => {
-    console.log("getUserController");
-
     // Extract the token from the Authorization header
     const authHeader = req.headers.authorization;
 
@@ -82,7 +80,7 @@ export const getUserController = asyncHandler(async (req, res) => {
     }
 
     const token = authHeader.slice(7);
-    console.log({ token });
+
     if (!token) {
         res.status(401).json({ error: "No token provided" });
         return;
@@ -91,10 +89,9 @@ export const getUserController = asyncHandler(async (req, res) => {
     try {
         // Verify the token
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        console.log({ decoded });
+
         // Get the user from the database
         const foundUser = await getUserById(decoded.id);
-        console.log({ foundUser });
         if (!foundUser) {
             res.status(404).json({ error: "User not found" });
             return;

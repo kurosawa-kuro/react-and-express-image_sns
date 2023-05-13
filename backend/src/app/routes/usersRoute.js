@@ -16,7 +16,6 @@ const userRoutes = (app) => {
     // Example of a protected route
     // This route will be accessible only if the user is authenticated
     app.get("/protected", authMiddleware, (req, res) => {
-        console.log(req.user);
         res.json({ message: "You are authenticated" });
     });
 };

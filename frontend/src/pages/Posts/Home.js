@@ -5,6 +5,7 @@ import { useFetchPosts } from '../../services/api';
 import useStore from '../../store';
 import { useNavigate } from 'react-router-dom';
 import useUserAuthentication from '../../hooks/useUserAuthentication';
+import useFlashMessage from '../../hooks/useFlashMessage';
 
 const Home = () => {
     const navigate = useNavigate();
@@ -18,14 +19,9 @@ const Home = () => {
     const setSearch = useStore(state => state.setSearch);
     const isAuthenticated = useUserAuthentication();
     const { data, isLoading, isError } = useFetchPosts(currentPage, search, isAuthenticated);
+    useFlashMessage();
 
     useEffect(() => {
-        if (flashMessage) {
-            setTimeout(() => {
-                setFlashMessage('');
-            }, 3000);
-        }
-
         if (data) {
             setTotalPages(data.totalPages);
         }
