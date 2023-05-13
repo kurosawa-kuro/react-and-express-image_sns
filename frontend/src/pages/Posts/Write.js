@@ -10,8 +10,8 @@ const Write = () => {
     const [comment, setComment] = useState('');
     const [error, setError] = useState('');
 
-    const createPost = useCreatePost(setTitle, setImage, setComment, setError);
     useUserAuthentication();
+    const createPost = useCreatePost(setTitle, setImage, setComment, setError);
 
     const handleSubmit = (e) => {
         e.preventDefault();
