@@ -1,8 +1,8 @@
 // src/hooks/useRegisterUser.js
 import { useMutation } from '@tanstack/react-query';
-import { registerUser } from '../services/api';
+import { registerUser } from '../../services/api';
 import { useNavigate } from 'react-router-dom';
-import useStore from '../state/store'
+import useStore from '../../state/store'
 
 export const useRegisterUser = (setName, setEmail, setPassword, setError) => {
     const setUser = useStore(state => state.setUser)

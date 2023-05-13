@@ -1,8 +1,8 @@
 // src/hooks/useFetchPosts.js
 import { useQuery } from '@tanstack/react-query';
-import useUserAuthentication from './useUserAuthentication';
-import usePagination from './usePagination';
-import { fetchPosts } from '../services/api';
+import useUserAuthentication from '../Auth/useUserAuthentication';
+import usePagination from '../usePagination';
+import { fetchPosts } from '../../services/api';
 
 export const useFetchPosts = (search) => {
     const isAuthenticated = useUserAuthentication();

@@ -1,8 +1,8 @@
 // Path: frontend/src/pages/Write.js
 
 import React, { useState } from 'react';
-import { useCreatePost } from '../../hooks/useCreatePost';
-import useUserAuthentication from '../../hooks/useUserAuthentication';
+import { useCreatePost } from '../../hooks/Posts/useCreatePost';
+import useUserAuthentication from '../../hooks/Auth/useUserAuthentication';
 
 const Write = () => {
     const [title, setTitle] = useState('');

@@ -1,6 +1,6 @@
 // src/hooks/useCreatePost.js
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { createPost } from '../services/api';
+import { createPost } from '../../services/api';
 import { useNavigate } from 'react-router-dom';
 
 export const useCreatePost = (setTitle, setImage, setComment, setError) => {

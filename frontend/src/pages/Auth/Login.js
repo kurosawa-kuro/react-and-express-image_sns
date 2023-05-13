@@ -1,7 +1,7 @@
 // Path: frontend/src/pages/Login.js
 
 import React, { useState } from 'react';
-import { useLoginUser } from '../../hooks/useLoginUser';
+import { useLoginUser } from '../../hooks/Auth/useLoginUser';
 import '../../styles/App.css';
 
 const Login = () => {

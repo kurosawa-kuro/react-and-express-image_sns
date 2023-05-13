@@ -1,7 +1,7 @@
 // src/pages/Home.js
 
 import React from 'react';
-import { useFetchPosts } from '../../hooks/useFetchPosts';
+import { useFetchPosts } from '../../hooks/Posts/useFetchPosts';
 import useStore from '../../state/store';
 import useFlashMessage from '../../hooks/useFlashMessage';
 

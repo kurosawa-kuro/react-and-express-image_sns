@@ -1,7 +1,7 @@
 // Path: frontend/src/pages/Register.js
 
 import React, { useState } from 'react';
-import { useRegisterUser } from '../../hooks/useRegisterUser';
+import { useRegisterUser } from '../../hooks/Auth/useRegisterUser';
 import '../../styles/App.css';
 
 const Registration = () => {

@@ -1,8 +1,8 @@
 // src/hooks/useLoginUser.js
 import { useMutation } from '@tanstack/react-query';
-import { loginUser } from '../services/api';
+import { loginUser } from '../../services/api';
 import { useNavigate } from 'react-router-dom';
-import useStore from '../state/store'
+import useStore from '../../state/store'
 
 export const useLoginUser = (setEmail, setPassword, setError) => {
     const setUser = useStore(state => state.setUser)
