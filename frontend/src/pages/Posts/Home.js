@@ -1,5 +1,4 @@
 // src/pages/Home.js
-
 import React from 'react';
 import { useFetchPosts } from '../../hooks/Posts/useFetchPosts';
 import useStore from '../../state/store';
@@ -10,21 +9,8 @@ const Home = () => {
     const search = useStore(state => state.search);
     const setSearch = useStore(state => state.setSearch);
     const isAuthenticated = useUserAuthentication();
-    const { data, isLoading, isError, currentPage, setCurrentPage, totalPages } = useFetchPosts(isAuthenticated, search);
+    const { data, isLoading, isError, handlePrevious, handleNext, currentPage, totalPages } = useFetchPosts(isAuthenticated, search);
     const flashMessage = useFlashMessage();
-
-
-    const handlePrevious = () => {
-        if (currentPage > 1) {
-            setCurrentPage(currentPage - 1);
-        }
-    };
-
-    const handleNext = () => {
-        if (currentPage < totalPages) {
-            setCurrentPage(currentPage + 1);
-        }
-    };
 
     const handleSearchChange = (event) => {
         setSearch(event.target.value);

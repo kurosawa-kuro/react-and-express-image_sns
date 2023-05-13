@@ -6,6 +6,18 @@ import { fetchPosts } from '../../services/api';
 export const useFetchPosts = (isAuthenticated, search) => {
     const { currentPage, setCurrentPage, totalPages, setTotalPages } = usePagination();
 
+    const handlePrevious = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+        }
+    };
+
+    const handleNext = () => {
+        if (currentPage < totalPages) {
+            setCurrentPage(currentPage + 1);
+        }
+    };
+
     const { data, isLoading, isError } = useQuery(['posts', currentPage, search], () => fetchPosts(currentPage, search), {
         enabled: isAuthenticated,
         onSuccess: (data) => {
@@ -13,5 +25,5 @@ export const useFetchPosts = (isAuthenticated, search) => {
         },
     });
 
-    return { data, isLoading, isError, currentPage, setCurrentPage, totalPages };
+    return { data, isLoading, isError, currentPage, setCurrentPage, totalPages, handlePrevious, handleNext };
 };
