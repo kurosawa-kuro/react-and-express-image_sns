@@ -1,4 +1,3 @@
-import { useMutation } from '@tanstack/react-query';
 import { getApiClient } from './apiClient';
 
 export const registerUser = async ({ name, password, email }) => {
@@ -7,26 +6,10 @@ export const registerUser = async ({ name, password, email }) => {
     return data;
 };
 
-
-export const fetchPosts = async (page = 1, search = '') => {
-    const apiClient = getApiClient();
-    const { data } = await apiClient.get(`/posts?page=${page}&search=${search}`);
-    return data;
-};
-
-export const createPost = async (formData) => {
-    const apiClient = getApiClient();
-    const { data } = await apiClient.post("/posts", formData);
-    return data;
-};
 export const loginUser = async ({ email, password }) => {
     const apiClient = getApiClient();
     const { data } = await apiClient.post("/login", { email, password });
     return data;
-};
-
-export const useLoginUser = () => {
-    return useMutation(loginUser);
 };
 
 export const fetchUserData = async () => {
@@ -44,4 +27,16 @@ export const fetchUserData = async () => {
     } catch (error) {
         throw new Error('Failed to fetch user data');
     }
+};
+
+export const createPost = async (formData) => {
+    const apiClient = getApiClient();
+    const { data } = await apiClient.post("/posts", formData);
+    return data;
+};
+
+export const fetchPosts = async (page = 1, search = '') => {
+    const apiClient = getApiClient();
+    const { data } = await apiClient.get(`/posts?page=${page}&search=${search}`);
+    return data;
 };
