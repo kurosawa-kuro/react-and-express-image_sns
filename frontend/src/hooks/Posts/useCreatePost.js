@@ -7,6 +7,19 @@ export const useCreatePost = (setTitle, setImage, setComment, setError, title, i
     const queryClient = useQueryClient();
     const navigate = useNavigate();
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append('title', title);
+        formData.append('image', image);
+        formData.append('comment', comment);
+
+        // userIdはログインシステムに基づいて変更してください
+        formData.append('userId', 1);
+
+        mutation.mutate(formData);
+    };
+
     const mutation = useMutation(createPost, {
         onSuccess: () => {
             // Clear form data
@@ -22,19 +35,6 @@ export const useCreatePost = (setTitle, setImage, setComment, setError, title, i
             setError(error.response.data.error);
         }
     });
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        const formData = new FormData();
-        formData.append('title', title);
-        formData.append('image', image);
-        formData.append('comment', comment);
-
-        // userIdはログインシステムに基づいて変更してください
-        formData.append('userId', 1);
-
-        mutation.mutate(formData);
-    };
 
     return { handleSubmit, ...mutation };
 };
