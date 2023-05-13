@@ -26,6 +26,8 @@ const Login = () => {
                 onSuccess: (data) => {
                     if (data.user && data.user.name) {
                         setUser({ name: data.user.name, email })
+                        // Save user data to localStorage
+                        localStorage.setItem('user', JSON.stringify({ name: data.user.name, email }));
                     }
                     setEmail('');
                     setPassword('');

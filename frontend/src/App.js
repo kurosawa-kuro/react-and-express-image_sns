@@ -17,6 +17,9 @@ import { fetchUserData } from './services/api';
 
 const App = () => {
 
+  // 非ログインの場合はLogin画面にリダイレクト
+
+
   return (
     <BrowserRouter>
       <div className="app">

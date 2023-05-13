@@ -27,6 +27,8 @@ const Registration = () => {
                     // Confirm that the returned data includes the user name
                     if (data.user && data.user.name) {
                         setUser({ name: data.user.name, email })
+                        // Save user data to localStorage
+                        localStorage.setItem('user', JSON.stringify({ name: data.user.name, email }));
                     }
                     setName('');
                     setEmail('');
