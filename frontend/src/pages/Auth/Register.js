@@ -12,15 +12,10 @@ const Registration = () => {
 
     const { handleSubmit, isLoading, isSuccess } = useRegisterUser(setName, setEmail, setPassword, setError);
 
-    const onSubmit = (event) => {
-        event.preventDefault();
-        handleSubmit(name, email, password);
-    };
-
     return (
         <div className="container">
             <h1>Registration</h1>
-            <form onSubmit={onSubmit}>
+            <form onSubmit={handleSubmit(name, email, password)}>
                 <div>
                     <label htmlFor="name">Name:</label>
                     <input
