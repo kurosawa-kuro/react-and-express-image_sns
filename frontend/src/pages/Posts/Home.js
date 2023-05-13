@@ -11,7 +11,9 @@ const Home = () => {
     const setTotalPages = useStore(state => state.setTotalPages);
     const flashMessage = useStore(state => state.flashMessage);
     const setFlashMessage = useStore(state => state.setFlashMessage);
-    const { data, isLoading, isError } = useFetchPosts(currentPage);
+    const search = useStore(state => state.search);
+    const setSearch = useStore(state => state.setSearch);
+    const { data, isLoading, isError } = useFetchPosts(currentPage, search);
 
     useEffect(() => {
         if (flashMessage) {
@@ -37,12 +39,20 @@ const Home = () => {
         }
     };
 
+    const handleSearchChange = (event) => {
+        console.log("handleSearchChange");
+        console.log(event.target.value);
+        setSearch(event.target.value);
+    }
+
     if (isLoading) return <div>Loading...</div>;
     if (isError) return <div>Error occurred while fetching posts.</div>;
 
     return (
         <div>
             <h1>Posts</h1>
+            {flashMessage && <div className="flash-message">{flashMessage}</div>}
+            <input type="text" value={search} onChange={handleSearchChange} placeholder="Search..." />
             {flashMessage && <div className="flash-message">{flashMessage}</div>}
             {data && data.data.map((post) => (
                 <div className='post' key={post.id}>

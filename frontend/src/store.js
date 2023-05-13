@@ -11,6 +11,8 @@ const useStore = create(set => ({
     setCurrentPage: (page) => set({ currentPage: page }),  // 現在のページを設定する関数を追加
     totalPages: 1,  // 総ページ数を追加
     setTotalPages: (pages) => set({ totalPages: pages }),  // 総ページ数を設定する関数を追加
+    search: '',  // 検索文字列を保存するためのstateを追加
+    setSearch: (search) => set({ search }),  // 検索文字列を設定する関数を追加
 }))
 
 export default useStore
