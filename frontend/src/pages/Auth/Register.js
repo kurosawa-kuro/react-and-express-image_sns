@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useStore from '../../state/store'
-import { useRegisterUser } from '../../services/api';
+import { useRegisterUser } from '../../hooks/useRegisterUser';
 import '../../styles/App.css';
 
 const Registration = () => {

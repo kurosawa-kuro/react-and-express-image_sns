@@ -1,7 +1,8 @@
 // src/pages/Home.js
 
 import React from 'react';
-import { useFetchPosts } from '../../services/api';
+import { useFetchPosts } from '../../hooks/useFetchPosts';
+// import { useRegisterUser } from '../../hooks/useRegisterUser';
 import useStore from '../../state/store';
 import useFlashMessage from '../../hooks/useFlashMessage';
 

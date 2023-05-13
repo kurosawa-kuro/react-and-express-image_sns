@@ -1,6 +1,4 @@
-import { useQuery, useMutation } from '@tanstack/react-query';
-import useUserAuthentication from '../hooks/useUserAuthentication';
-import usePagination from '../hooks/usePagination';
+import { useMutation } from '@tanstack/react-query';
 import { getApiClient } from './apiClient';
 
 export const registerUser = async ({ name, password, email }) => {
@@ -9,9 +7,6 @@ export const registerUser = async ({ name, password, email }) => {
     return data;
 };
 
-export const useRegisterUser = () => {
-    return useMutation(registerUser);
-};
 
 export const fetchPosts = async (page = 1, search = '') => {
     const apiClient = getApiClient();
@@ -19,25 +14,11 @@ export const fetchPosts = async (page = 1, search = '') => {
     return data;
 };
 
-export const useFetchPosts = (search) => {
-    const isAuthenticated = useUserAuthentication();
-    const { currentPage, setCurrentPage, totalPages, setTotalPages } = usePagination();
-
-    const { data, isLoading, isError } = useQuery(['posts', currentPage, search], () => fetchPosts(currentPage, search), {
-        enabled: isAuthenticated,
-        onSuccess: (data) => {
-            setTotalPages(data.totalPages);
-        },
-    });
-
-    return { data, isLoading, isError, currentPage, setCurrentPage, totalPages };
-};
-
-export const useCreatePost = () => {
+export const createPost = async (formData) => {
     const apiClient = getApiClient();
-    return useMutation(formData => apiClient.post("/posts", formData));
+    const { data } = await apiClient.post("/posts", formData);
+    return data;
 };
-
 export const loginUser = async ({ email, password }) => {
     const apiClient = getApiClient();
     const { data } = await apiClient.post("/login", { email, password });
