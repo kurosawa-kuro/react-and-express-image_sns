@@ -11,20 +11,7 @@ const Write = () => {
     const [error, setError] = useState('');
 
     useUserAuthentication();
-    const createPost = useCreatePost(setTitle, setImage, setComment, setError);
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        const formData = new FormData();
-        formData.append('title', title);
-        formData.append('image', image);
-        formData.append('comment', comment);
-
-        // userIdはログインシステムに基づいて変更してください
-        formData.append('userId', 1);
-
-        createPost.mutate(formData);
-    };
+    const { handleSubmit, ...createPost } = useCreatePost(setTitle, setImage, setComment, setError, title, image, comment);
 
     return (
         <div>

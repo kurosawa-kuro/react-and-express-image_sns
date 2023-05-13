@@ -3,11 +3,11 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { createPost } from '../../services/api';
 import { useNavigate } from 'react-router-dom';
 
-export const useCreatePost = (setTitle, setImage, setComment, setError) => {
+export const useCreatePost = (setTitle, setImage, setComment, setError, title, image, comment) => {
     const queryClient = useQueryClient();
     const navigate = useNavigate();
 
-    return useMutation(createPost, {
+    const mutation = useMutation(createPost, {
         onSuccess: () => {
             // Clear form data
             setTitle('');
@@ -22,4 +22,19 @@ export const useCreatePost = (setTitle, setImage, setComment, setError) => {
             setError(error.response.data.error);
         }
     });
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append('title', title);
+        formData.append('image', image);
+        formData.append('comment', comment);
+
+        // userIdはログインシステムに基づいて変更してください
+        formData.append('userId', 1);
+
+        mutation.mutate(formData);
+    };
+
+    return { handleSubmit, ...mutation };
 };
