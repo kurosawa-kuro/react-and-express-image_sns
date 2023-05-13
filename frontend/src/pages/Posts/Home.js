@@ -6,12 +6,9 @@ import useStore from '../../state/store';
 import useFlashMessage from '../../hooks/useFlashMessage';
 
 const Home = () => {
-    const currentPage = useStore(state => state.currentPage);
-    const setCurrentPage = useStore(state => state.setCurrentPage);
-    const totalPages = useStore(state => state.totalPages);
     const search = useStore(state => state.search);
     const setSearch = useStore(state => state.setSearch);
-    const { data, isLoading, isError } = useFetchPosts(currentPage, search); // remove isAuthenticated
+    const { data, isLoading, isError, currentPage, setCurrentPage, totalPages } = useFetchPosts(search);
     const flashMessage = useFlashMessage();
 
     const handlePrevious = () => {

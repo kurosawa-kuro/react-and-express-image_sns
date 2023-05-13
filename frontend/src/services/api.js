@@ -35,17 +35,22 @@ export const fetchPosts = async (page = 1, search = '') => {
     return data;
 };
 
-export const useFetchPosts = (currentPage, search) => {
+export const useFetchPosts = (search) => {
     const isAuthenticated = useUserAuthentication();
+    const currentPage = useStore(state => state.currentPage); // get currentPage from state
+    const setCurrentPage = useStore(state => state.setCurrentPage); // get setCurrentPage from state
+    const totalPages = useStore(state => state.totalPages); // get totalPages from state
     const setTotalPages = useStore(state => state.setTotalPages); // get the setter for totalPages
 
-    return useQuery(['posts', currentPage, search], () => fetchPosts(currentPage, search), {
+    const { data, isLoading, isError } = useQuery(['posts', currentPage, search], () => fetchPosts(currentPage, search), {
         enabled: isAuthenticated,
         onSuccess: (data) => {
             // When the fetch is successful, automatically save the totalPages to the state
             setTotalPages(data.totalPages);
         },
     });
+
+    return { data, isLoading, isError, currentPage, setCurrentPage, totalPages };
 };
 
 export const useCreatePost = () => {
