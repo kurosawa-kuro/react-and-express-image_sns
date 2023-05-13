@@ -1,7 +1,6 @@
 // Path: frontend/src/pages/Login.js
 
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import useStore from '../../state/store'
 import { useLoginUser } from '../../hooks/useLoginUser';
 import '../../styles/App.css';
@@ -13,33 +12,15 @@ const Login = () => {
 
     const setUser = useStore(state => state.setUser)
     const setFlashMessage = useStore(state => state.setFlashMessage) // フラッシュメッセージを設定する関数を取得
-    const navigate = useNavigate();
 
-    const mutation = useLoginUser();
+    const loginUserMutation = useLoginUser(setUser, setEmail, setPassword, setError, setFlashMessage);
 
     const handleSubmit = (event) => {
         event.preventDefault();
         if (!email || !password) {
             setError('Please fill out all fields');
         } else {
-            mutation.mutate({ email, password }, {
-                onSuccess: (data) => {
-                    if (data.user && data.user.name) {
-                        setUser({ name: data.user.name, email })
-                        // Save user data to localStorage
-                        localStorage.setItem('user', JSON.stringify({ name: data.user.name, email }));
-                    }
-                    setEmail('');
-                    setPassword('');
-                    setError('');
-                    setFlashMessage('Logged in successfully!'); // ログイン成功時にフラッシュメッセージをセット
-                    localStorage.setItem('token', data.token);
-                    navigate('/');
-                },
-                onError: (error) => {
-                    setError(error.response ? error.response.data.error : 'Login failed');
-                }
-            });
+            loginUserMutation.mutate({ email, password });
         }
     };
 
@@ -68,7 +49,8 @@ const Login = () => {
                     />
                 </div>
                 {error && <div className="error">{error}</div>}
-                <button type="submit" disabled={mutation.isLoading}>Submit</button>
+                <button type="submit" disabled={loginUserMutation.isLoading}>Submit</button>
+
             </form>
         </div>
     );
