@@ -1,8 +1,6 @@
 // Path: frontend/src/pages/Write.js
 
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useQueryClient } from '@tanstack/react-query';
 import { useCreatePost } from '../../hooks/useCreatePost';
 import useUserAuthentication from '../../hooks/useUserAuthentication';
 
@@ -12,10 +10,7 @@ const Write = () => {
     const [comment, setComment] = useState('');
     const [error, setError] = useState('');
 
-    const navigate = useNavigate();
-    const createPost = useCreatePost();
-    const queryClient = useQueryClient();
-
+    const createPost = useCreatePost(setTitle, setImage, setComment, setError);
     useUserAuthentication();
 
     const handleSubmit = (e) => {
@@ -28,21 +23,7 @@ const Write = () => {
         // userIdはログインシステムに基づいて変更してください
         formData.append('userId', 1);
 
-        createPost.mutate(formData, {
-            onSuccess: () => {
-                // Clear form data
-                setTitle('');
-                setImage(null);
-                setComment('');
-                setError('');
-                queryClient.invalidateQueries(['posts']);
-                navigate('/');  // 投稿成功時にホームページへ遷移
-            },
-            onError: (error) => {
-                // サーバーからのエラーメッセージを取り出して設定
-                setError(error.response.data.error);
-            }
-        });
+        createPost.mutate(formData);
     };
 
     return (
