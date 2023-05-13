@@ -1,7 +1,6 @@
 // Path: frontend/src/pages/Login.js
 
 import React, { useState } from 'react';
-import useStore from '../../state/store'
 import { useLoginUser } from '../../hooks/useLoginUser';
 import '../../styles/App.css';
 
@@ -10,9 +9,7 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
-    const setUser = useStore(state => state.setUser)
-    const setFlashMessage = useStore(state => state.setFlashMessage)
-    const loginUserMutation = useLoginUser(setUser, setEmail, setPassword, setError, setFlashMessage);
+    const loginUserMutation = useLoginUser(setEmail, setPassword, setError);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -48,8 +45,9 @@ const Login = () => {
                     />
                 </div>
                 {error && <div className="error">{error}</div>}
-                <button type="submit" disabled={loginUserMutation.isLoading}>Submit</button>
-
+                <button type="submit" disabled={loginUserMutation.isLoading}>
+                    Submit
+                </button>
             </form>
         </div>
     );
