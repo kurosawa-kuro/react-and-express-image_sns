@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import useStore from '../../store'
+import useStore from '../../state/store'
 import { useLoginUser } from '../../services/api';
 import '../../styles/App.css';
 

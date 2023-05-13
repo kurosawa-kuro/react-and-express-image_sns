@@ -2,7 +2,7 @@
 
 import React, { useEffect } from 'react';
 import { useFetchPosts } from '../../services/api';
-import useStore from '../../store';
+import useStore from '../../state/store';
 import { useNavigate } from 'react-router-dom';
 import useUserAuthentication from '../../hooks/useUserAuthentication';
 import useFlashMessage from '../../hooks/useFlashMessage';
