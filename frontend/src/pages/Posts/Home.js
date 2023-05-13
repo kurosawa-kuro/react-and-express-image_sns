@@ -5,13 +5,13 @@ import { useFetchPosts } from '../../services/api';
 import useStore from '../../store';
 
 const Home = () => {
-    const currentPage = useStore(state => state.currentPage);  // 現在のページを取得
-    const setCurrentPage = useStore(state => state.setCurrentPage);  // 現在のページを設定する関数を取得
-    const totalPages = useStore(state => state.totalPages);  // 総ページ数を取得
-    const setTotalPages = useStore(state => state.setTotalPages);  // 総ページ数を設定する関数を取得
-    const { data, isLoading, isError } = useFetchPosts(currentPage);
+    const currentPage = useStore(state => state.currentPage);
+    const setCurrentPage = useStore(state => state.setCurrentPage);
+    const totalPages = useStore(state => state.totalPages);
+    const setTotalPages = useStore(state => state.setTotalPages);
     const flashMessage = useStore(state => state.flashMessage);
     const setFlashMessage = useStore(state => state.setFlashMessage);
+    const { data, isLoading, isError } = useFetchPosts(currentPage);
 
     useEffect(() => {
         if (flashMessage) {
@@ -32,11 +32,7 @@ const Home = () => {
     };
 
     const handleNext = () => {
-        console.log("handleNext")
-        console.log("currentPage: " + currentPage)
-        console.log("totalPages: " + totalPages)
         if (currentPage < totalPages) {
-            console.log("currentPage < totalPages")
             setCurrentPage(currentPage + 1);
         }
     };
@@ -58,8 +54,8 @@ const Home = () => {
                 </div>
             ))}
             <div className="page-info">
-                <button onClick={handlePrevious} disabled={currentPage === 1}>Previous</button>
-                <button onClick={handleNext} disabled={currentPage === totalPages}>Next</button>
+                {currentPage > 1 && <button onClick={handlePrevious}>Previous</button>}
+                {currentPage < totalPages && <button onClick={handleNext}>Next</button>}
             </div>
         </div>
     );
