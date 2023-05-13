@@ -3,8 +3,10 @@
 import React, { useEffect } from 'react';
 import { useFetchPosts } from '../../services/api';
 import useStore from '../../store';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
+    const navigate = useNavigate();
     const currentPage = useStore(state => state.currentPage);
     const setCurrentPage = useStore(state => state.setCurrentPage);
     const totalPages = useStore(state => state.totalPages);
@@ -16,6 +18,11 @@ const Home = () => {
     const { data, isLoading, isError } = useFetchPosts(currentPage, search);
 
     useEffect(() => {
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (!user) {
+            navigate('/login');
+        }
+
         if (flashMessage) {
             setTimeout(() => {
                 setFlashMessage('');
@@ -25,7 +32,7 @@ const Home = () => {
         if (data) {
             setTotalPages(data.totalPages);
         }
-    }, [flashMessage, setFlashMessage, data, setTotalPages]);
+    }, [flashMessage, setFlashMessage, data, setTotalPages, navigate]);
 
     const handlePrevious = () => {
         if (currentPage > 1) {
