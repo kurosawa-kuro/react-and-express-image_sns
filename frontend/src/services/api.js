@@ -1,7 +1,7 @@
 import { useQuery, useMutation } from '@tanstack/react-query';
 import useUserAuthentication from '../hooks/useUserAuthentication';
 import usePagination from '../hooks/usePagination';
-import { getApiClient } from '../hooks/useApiClient';
+import { getApiClient } from './apiClient';
 
 export const registerUser = async ({ name, password, email }) => {
     const apiClient = getApiClient();
