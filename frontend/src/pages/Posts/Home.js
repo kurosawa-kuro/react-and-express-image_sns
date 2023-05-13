@@ -4,12 +4,15 @@ import React from 'react';
 import { useFetchPosts } from '../../hooks/Posts/useFetchPosts';
 import useStore from '../../state/store';
 import useFlashMessage from '../../hooks/useFlashMessage';
+import useUserAuthentication from '../../hooks/Auth/useUserAuthentication';
 
 const Home = () => {
     const search = useStore(state => state.search);
     const setSearch = useStore(state => state.setSearch);
-    const { data, isLoading, isError, currentPage, setCurrentPage, totalPages } = useFetchPosts(search);
+    const isAuthenticated = useUserAuthentication();
+    const { data, isLoading, isError, currentPage, setCurrentPage, totalPages } = useFetchPosts(isAuthenticated, search);
     const flashMessage = useFlashMessage();
+
 
     const handlePrevious = () => {
         if (currentPage > 1) {
