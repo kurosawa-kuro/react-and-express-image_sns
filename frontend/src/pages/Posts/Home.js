@@ -1,20 +1,15 @@
 // src/pages/Home.js
 import React from 'react';
 import { useFetchPosts } from '../../hooks/Posts/useFetchPosts';
-import useStore from '../../state/store';
+import { useSearch } from '../../hooks/useSearch';
 import useFlashMessage from '../../hooks/useFlashMessage';
 import useUserAuthentication from '../../hooks/Auth/useUserAuthentication';
 
 const Home = () => {
-    const search = useStore(state => state.search);
-    const setSearch = useStore(state => state.setSearch);
     const isAuthenticated = useUserAuthentication();
+    const { search, handleSearchChange } = useSearch();
     const { data, isLoading, isError, handlePrevious, handleNext, currentPage, totalPages } = useFetchPosts(isAuthenticated, search);
     const flashMessage = useFlashMessage();
-
-    const handleSearchChange = (event) => {
-        setSearch(event.target.value);
-    }
 
     if (isLoading) return <div>Loading...</div>;
     if (isError) return <div>Error occurred while fetching posts.</div>;
