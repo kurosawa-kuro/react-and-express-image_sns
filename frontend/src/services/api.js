@@ -12,7 +12,7 @@ export const loginUser = async ({ email, password }) => {
     return data;
 };
 
-export const fetchUserData = async () => {
+export const fetchUser = async () => {
     const token = localStorage.getItem('token');
     const apiClient = getApiClient();
 
