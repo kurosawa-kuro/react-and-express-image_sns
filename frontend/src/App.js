@@ -1,7 +1,6 @@
 // src/App.js
 
-import React, { useEffect } from 'react';
-import useStore from './store';
+import React from 'react';
 import "./styles/reset.css";
 import "./styles/App.css";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -13,7 +12,6 @@ import Write from "./pages/Posts/Write";
 import Information from "./pages/Information";
 import Register from "./pages/Auth/Register";
 import Login from "./pages/Auth/Login";
-import { fetchUserData } from './services/api';
 
 const App = () => {
   return (
