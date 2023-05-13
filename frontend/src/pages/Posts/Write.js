@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQueryClient } from '@tanstack/react-query';
 import { useCreatePost } from '../../services/api';
+import useUserAuthentication from '../../hooks/useUserAuthentication';
 
 const Write = () => {
     const [title, setTitle] = useState('');
@@ -14,6 +15,8 @@ const Write = () => {
     const navigate = useNavigate();
     const createPost = useCreatePost();
     const queryClient = useQueryClient();
+
+    useUserAuthentication();
 
     const handleSubmit = (e) => {
         e.preventDefault();
