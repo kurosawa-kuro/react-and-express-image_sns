@@ -1,10 +1,12 @@
-### Get all Posts
-GET http://localhost:8080/posts
+### Get Posts (page 1)
+GET http://localhost:8080/posts?page=1
 Content-Type: application/json
 
 ###
 
-
+### Get Posts (page 2)
+GET http://localhost:8080/posts?page=2
+Content-Type: application/json
 
 ###
 

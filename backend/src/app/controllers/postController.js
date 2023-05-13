@@ -1,11 +1,20 @@
 // Path: backend/src/app/controllers/postController.js
 
 import asyncHandler from "express-async-handler";
-import { getAllPosts, createNewPost } from "../models/postModel.js";
+import { getPaginatedPosts, createNewPost, getTotalPosts, POSTS_PER_PAGE } from "../models/postModel.js";
 
 export const getAllPostsController = asyncHandler(async (req, res) => {
-    const posts = await getAllPosts();
-    res.json(posts);
+    const page = Number(req.query.page) || 1;
+    const posts = await getPaginatedPosts(page);
+    const totalPosts = await getTotalPosts();
+    const totalPages = Math.ceil(totalPosts / POSTS_PER_PAGE);
+
+    res.json({
+        currentPage: page,
+        totalPages: totalPages,
+        itemsPerPage: POSTS_PER_PAGE,
+        data: posts,
+    });
 });
 
 export const createNewPostController = asyncHandler(async (req, res) => {

@@ -2,20 +2,44 @@
 
 import React, { useEffect } from 'react';
 import { useFetchPosts } from '../../services/api';
-import useStore from '../../store'; // ストアをimport
+import useStore from '../../store';
 
 const Home = () => {
-    const { data: posts, isLoading, isError } = useFetchPosts();
-    const flashMessage = useStore(state => state.flashMessage); // フラッシュメッセージを取得
-    const setFlashMessage = useStore(state => state.setFlashMessage); // フラッシュメッセージを設定する関数を取得
+    const currentPage = useStore(state => state.currentPage);  // 現在のページを取得
+    const setCurrentPage = useStore(state => state.setCurrentPage);  // 現在のページを設定する関数を取得
+    const totalPages = useStore(state => state.totalPages);  // 総ページ数を取得
+    const setTotalPages = useStore(state => state.setTotalPages);  // 総ページ数を設定する関数を取得
+    const { data, isLoading, isError } = useFetchPosts(currentPage);
+    const flashMessage = useStore(state => state.flashMessage);
+    const setFlashMessage = useStore(state => state.setFlashMessage);
 
     useEffect(() => {
-        if (flashMessage) { // フラッシュメッセージがある場合、数秒後にクリア
+        if (flashMessage) {
             setTimeout(() => {
                 setFlashMessage('');
             }, 3000);
         }
-    }, [flashMessage, setFlashMessage]);
+
+        if (data) {
+            setTotalPages(data.totalPages);
+        }
+    }, [flashMessage, setFlashMessage, data, setTotalPages]);
+
+    const handlePrevious = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+        }
+    };
+
+    const handleNext = () => {
+        console.log("handleNext")
+        console.log("currentPage: " + currentPage)
+        console.log("totalPages: " + totalPages)
+        if (currentPage < totalPages) {
+            console.log("currentPage < totalPages")
+            setCurrentPage(currentPage + 1);
+        }
+    };
 
     if (isLoading) return <div>Loading...</div>;
     if (isError) return <div>Error occurred while fetching posts.</div>;
@@ -23,8 +47,8 @@ const Home = () => {
     return (
         <div>
             <h1>Posts</h1>
-            {flashMessage && <div className="flash-message">{flashMessage}</div>} {/* フラッシュメッセージを表示 */}
-            {posts.map((post) => (
+            {flashMessage && <div className="flash-message">{flashMessage}</div>}
+            {data && data.data.map((post) => (
                 <div className='post' key={post.id}>
                     <h2>{post.title}</h2>
                     <div className='post-info'>
@@ -33,6 +57,10 @@ const Home = () => {
                     </div>
                 </div>
             ))}
+            <div className="page-info">
+                <button onClick={handlePrevious} disabled={currentPage === 1}>Previous</button>
+                <button onClick={handleNext} disabled={currentPage === totalPages}>Next</button>
+            </div>
         </div>
     );
 };

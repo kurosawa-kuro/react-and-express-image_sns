@@ -16,13 +16,13 @@ export const useRegisterUser = () => {
     return useMutation(registerUser);
 };
 
-export const fetchPosts = async () => {
-    const { data } = await apiClient.get("/posts");
+export const fetchPosts = async (page = 1) => {
+    const { data } = await apiClient.get(`/posts?page=${page}`);
     return data;
 };
 
-export const useFetchPosts = () => {
-    return useQuery(['posts'], fetchPosts);
+export const useFetchPosts = (page) => {
+    return useQuery(['posts', page], () => fetchPosts(page));
 };
 
 export const useCreatePost = () => {
