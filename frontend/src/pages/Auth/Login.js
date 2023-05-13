@@ -11,8 +11,7 @@ const Login = () => {
     const [error, setError] = useState('');
 
     const setUser = useStore(state => state.setUser)
-    const setFlashMessage = useStore(state => state.setFlashMessage) // フラッシュメッセージを設定する関数を取得
-
+    const setFlashMessage = useStore(state => state.setFlashMessage)
     const loginUserMutation = useLoginUser(setUser, setEmail, setPassword, setError, setFlashMessage);
 
     const handleSubmit = (event) => {

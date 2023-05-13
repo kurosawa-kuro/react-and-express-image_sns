@@ -13,34 +13,15 @@ const Registration = () => {
     const [error, setError] = useState('');
 
     const setUser = useStore(state => state.setUser)
-    const navigate = useNavigate();
-
-    const mutation = useRegisterUser();
+    const setFlashMessage = useStore(state => state.setFlashMessage)
+    const registerUserMutation = useRegisterUser();
 
     const handleSubmit = (event) => {
         event.preventDefault();
         if (!name || !email || !password) {
             setError('Please fill out all fields');
         } else {
-            mutation.mutate({ name, email, password }, {
-                onSuccess: (data) => {
-                    // Confirm that the returned data includes the user name
-                    if (data.user && data.user.name) {
-                        setUser({ name: data.user.name, email })
-                        // Save user data to localStorage
-                        localStorage.setItem('user', JSON.stringify({ name: data.user.name, email }));
-                    }
-                    setName('');
-                    setEmail('');
-                    setPassword('');
-                    setError('');
-                    localStorage.setItem('token', data.token);
-                    navigate('/');
-                },
-                onError: (error) => {
-                    setError(error.response ? error.response.data.error : 'Registration failed');
-                }
-            });
+            registerUserMutation.mutate(setUser, setName, setEmail, setPassword, setError, setFlashMessage);
         }
     };
 
@@ -79,9 +60,9 @@ const Registration = () => {
                     />
                 </div>
                 {error && <div className="error">{error}</div>}
-                <button type="submit" disabled={mutation.isLoading}>Submit</button>
+                <button type="submit" disabled={registerUserMutation.isLoading}>Submit</button>
             </form>
-            {mutation.isSuccess && <div>User successfully registered!</div>}
+            {registerUserMutation.isSuccess && <div>User successfully registered!</div>}
         </div>
     );
 };
