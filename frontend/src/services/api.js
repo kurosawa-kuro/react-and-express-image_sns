@@ -7,6 +7,18 @@ const apiClient = axios.create({
     baseURL: "http://localhost:8080",
 });
 
+apiClient.interceptors.request.use(
+    config => {
+        const token = localStorage.getItem('token');
+        console.log('token', token);
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
+        }
+        return config;
+    },
+    error => Promise.reject(error)
+);
+
 export const registerUser = async ({ name, password, email }) => {
     const { data } = await apiClient.post("/register", { name, password, email });
     return data;
