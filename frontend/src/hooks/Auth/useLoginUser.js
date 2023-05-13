@@ -9,11 +9,11 @@ export const useLoginUser = (setEmail, setPassword, setError) => {
     const setFlashMessage = useStore((state) => state.setFlashMessage);
     const navigate = useNavigate();
 
-    return useMutation(loginUser, {
+    const mutation = useMutation(loginUser, {
         onSuccess: (data) => {
             if (data.user && data.user.name) {
-                setUser({ name: data.user.name, email: setEmail });
-                localStorage.setItem('user', JSON.stringify({ name: data.user.name, email: setEmail }));
+                setUser({ name: data.user.name });
+                localStorage.setItem('user', JSON.stringify({ name: data.user.name }));
             }
             setEmail('');
             setPassword('');
@@ -26,4 +26,15 @@ export const useLoginUser = (setEmail, setPassword, setError) => {
             setError(error.response ? error.response.data.error : 'Login failed');
         },
     });
+
+    const handleSubmit = (email, password) => (event) => {
+        event.preventDefault();
+        if (!email || !password) {
+            setError('Please fill out all fields');
+        } else {
+            mutation.mutate({ email, password });
+        }
+    };
+
+    return { handleSubmit, ...mutation };
 };

@@ -9,21 +9,12 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
-    const loginUserMutation = useLoginUser(setEmail, setPassword, setError);
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        if (!email || !password) {
-            setError('Please fill out all fields');
-        } else {
-            loginUserMutation.mutate({ email, password });
-        }
-    };
+    const { handleSubmit, isLoading } = useLoginUser(setEmail, setPassword, setError);
 
     return (
         <div className="container">
             <h1>Login</h1>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit(email, password)}>
                 <div>
                     <label htmlFor="email">Email:</label>
                     <input
@@ -45,7 +36,7 @@ const Login = () => {
                     />
                 </div>
                 {error && <div className="error">{error}</div>}
-                <button type="submit" disabled={loginUserMutation.isLoading}>
+                <button type="submit" disabled={isLoading}>
                     Submit
                 </button>
             </form>
