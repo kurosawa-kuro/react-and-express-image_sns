@@ -3,7 +3,6 @@
 import React, { useEffect } from 'react';
 import { useFetchPosts } from '../../services/api';
 import useStore from '../../state/store';
-import useUserAuthentication from '../../hooks/useUserAuthentication';
 import useFlashMessage from '../../hooks/useFlashMessage';
 
 const Home = () => {
@@ -13,8 +12,7 @@ const Home = () => {
     const setTotalPages = useStore(state => state.setTotalPages);
     const search = useStore(state => state.search);
     const setSearch = useStore(state => state.setSearch);
-    const isAuthenticated = useUserAuthentication();
-    const { data, isLoading, isError } = useFetchPosts(currentPage, search, isAuthenticated);
+    const { data, isLoading, isError } = useFetchPosts(currentPage, search); // remove isAuthenticated
     const flashMessage = useFlashMessage();
 
     useEffect(() => {

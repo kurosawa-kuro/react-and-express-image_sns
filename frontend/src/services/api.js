@@ -2,6 +2,8 @@
 
 import axios from "axios";
 import { useQuery, useMutation } from '@tanstack/react-query';
+import useUserAuthentication from '../hooks/useUserAuthentication'; // import the hook
+
 
 const apiClient = axios.create({
     baseURL: "http://localhost:8080",
@@ -32,7 +34,9 @@ export const fetchPosts = async (page = 1, search = '') => {
     return data;
 };
 
-export const useFetchPosts = (currentPage, search, isAuthenticated) => {
+export const useFetchPosts = (currentPage, search) => { // remove isAuthenticated from parameters
+    const isAuthenticated = useUserAuthentication(); // get isAuthenticated inside the hook
+
     return useQuery(['posts', currentPage, search], () => fetchPosts(currentPage, search), {
         enabled: isAuthenticated,  // ログインしている場合のみフックが動作する
     });
