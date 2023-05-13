@@ -40,8 +40,6 @@ const Home = () => {
     };
 
     const handleSearchChange = (event) => {
-        console.log("handleSearchChange");
-        console.log(event.target.value);
         setSearch(event.target.value);
     }
 
