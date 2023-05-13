@@ -16,9 +16,8 @@ const Home = () => {
     const setFlashMessage = useStore(state => state.setFlashMessage);
     const search = useStore(state => state.search);
     const setSearch = useStore(state => state.setSearch);
-    const { data, isLoading, isError } = useFetchPosts(currentPage, search);
-
-    useUserAuthentication();
+    const isAuthenticated = useUserAuthentication();
+    const { data, isLoading, isError } = useFetchPosts(currentPage, search, isAuthenticated);
 
     useEffect(() => {
         if (flashMessage) {

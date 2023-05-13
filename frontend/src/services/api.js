@@ -33,8 +33,10 @@ export const fetchPosts = async (page = 1, search = '') => {
     return data;
 };
 
-export const useFetchPosts = (page, search) => {
-    return useQuery(['posts', page, search], () => fetchPosts(page, search));
+export const useFetchPosts = (currentPage, search, isAuthenticated) => {
+    return useQuery(['posts', currentPage, search], () => fetchPosts(currentPage, search), {
+        enabled: isAuthenticated,  // ログインしている場合のみフックが動作する
+    });
 };
 
 export const useCreatePost = () => {
