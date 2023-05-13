@@ -4,6 +4,7 @@ import React, { useEffect } from 'react';
 import { useFetchPosts } from '../../services/api';
 import useStore from '../../store';
 import { useNavigate } from 'react-router-dom';
+import useUserAuthentication from '../../hooks/useUserAuthentication';
 
 const Home = () => {
     const navigate = useNavigate();
@@ -17,12 +18,9 @@ const Home = () => {
     const setSearch = useStore(state => state.setSearch);
     const { data, isLoading, isError } = useFetchPosts(currentPage, search);
 
-    useEffect(() => {
-        const user = JSON.parse(localStorage.getItem('user'));
-        if (!user) {
-            navigate('/login');
-        }
+    useUserAuthentication();
 
+    useEffect(() => {
         if (flashMessage) {
             setTimeout(() => {
                 setFlashMessage('');
