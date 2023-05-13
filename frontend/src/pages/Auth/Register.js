@@ -10,21 +10,17 @@ const Registration = () => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
-    const registerUserMutation = useRegisterUser(setName, setEmail, setPassword, setError);
+    const { handleSubmit, isLoading, isSuccess } = useRegisterUser(setName, setEmail, setPassword, setError);
 
-    const handleSubmit = (event) => {
+    const onSubmit = (event) => {
         event.preventDefault();
-        if (!name || !email || !password) {
-            setError('Please fill out all fields');
-        } else {
-            registerUserMutation.mutate({ name, email, password });
-        }
+        handleSubmit(name, email, password);
     };
 
     return (
         <div className="container">
             <h1>Registration</h1>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={onSubmit}>
                 <div>
                     <label htmlFor="name">Name:</label>
                     <input
@@ -56,9 +52,9 @@ const Registration = () => {
                     />
                 </div>
                 {error && <div className="error">{error}</div>}
-                <button type="submit" disabled={registerUserMutation.isLoading}>Submit</button>
+                <button type="submit" disabled={isLoading}>Submit</button>
             </form>
-            {registerUserMutation.isSuccess && <div>User successfully registered!</div>}
+            {isSuccess && <div>User successfully registered!</div>}
         </div>
     );
 };

@@ -9,7 +9,7 @@ export const useRegisterUser = (setName, setEmail, setPassword, setError) => {
     const setFlashMessage = useStore((state) => state.setFlashMessage);
     const navigate = useNavigate();
 
-    const registerUserMutation = useMutation(registerUser, {
+    const mutation = useMutation(registerUser, {
         onSuccess: (data) => {
             if (data.user && data.user.name) {
                 setUser({ name: data.user.name, email: data.user.email });
@@ -28,5 +28,13 @@ export const useRegisterUser = (setName, setEmail, setPassword, setError) => {
         },
     });
 
-    return registerUserMutation;
+    const handleSubmit = (name, email, password) => {
+        if (!name || !email || !password) {
+            setError('Please fill out all fields');
+            return;
+        }
+        mutation.mutate({ name, email, password });
+    };
+
+    return { handleSubmit, ...mutation };
 };
