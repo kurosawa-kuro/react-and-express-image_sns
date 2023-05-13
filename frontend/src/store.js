@@ -7,12 +7,12 @@ const useStore = create(set => ({
     setUser: (user) => set({ user }),
     flashMessage: '',
     setFlashMessage: (message) => set({ flashMessage: message }),
-    currentPage: 1,  // 現在のページを追加
-    setCurrentPage: (page) => set({ currentPage: page }),  // 現在のページを設定する関数を追加
-    totalPages: 1,  // 総ページ数を追加
-    setTotalPages: (pages) => set({ totalPages: pages }),  // 総ページ数を設定する関数を追加
-    search: '',  // 検索文字列を保存するためのstateを追加
-    setSearch: (search) => set({ search }),  // 検索文字列を設定する関数を追加
+    currentPage: 1,
+    setCurrentPage: (page) => set({ currentPage: page }),
+    totalPages: 1,
+    setTotalPages: (pages) => set({ totalPages: pages }),
+    search: '',
+    setSearch: (search) => set({ search }),
 }))
 
 export default useStore
