@@ -1,8 +1,6 @@
 // Path: frontend/src/pages/Register.js
 
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import useStore from '../../state/store'
 import { useRegisterUser } from '../../hooks/useRegisterUser';
 import '../../styles/App.css';
 
@@ -12,16 +10,14 @@ const Registration = () => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
-    const setUser = useStore(state => state.setUser)
-    const setFlashMessage = useStore(state => state.setFlashMessage)
-    const registerUserMutation = useRegisterUser();
+    const registerUserMutation = useRegisterUser(setName, setEmail, setPassword, setError);
 
     const handleSubmit = (event) => {
         event.preventDefault();
         if (!name || !email || !password) {
             setError('Please fill out all fields');
         } else {
-            registerUserMutation.mutate(setUser, setName, setEmail, setPassword, setError, setFlashMessage);
+            registerUserMutation.mutate({ name, email, password });
         }
     };
 

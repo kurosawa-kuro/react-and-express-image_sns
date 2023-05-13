@@ -2,8 +2,11 @@
 import { useMutation } from '@tanstack/react-query';
 import { registerUser } from '../services/api';
 import { useNavigate } from 'react-router-dom';
+import useStore from '../state/store'
 
-export const useRegisterUser = (setUser, setName, setEmail, setPassword, setError, setFlashMessage) => {
+export const useRegisterUser = (setName, setEmail, setPassword, setError) => {
+    const setUser = useStore(state => state.setUser)
+    const setFlashMessage = useStore((state) => state.setFlashMessage);
     const navigate = useNavigate();
 
     const registerUserMutation = useMutation(registerUser, {
