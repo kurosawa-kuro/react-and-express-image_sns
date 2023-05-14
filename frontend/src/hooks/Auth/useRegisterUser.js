@@ -20,6 +20,7 @@ export const useRegisterUser = (setName, setEmail, setPassword, setError) => {
             setPassword('');
             setError('');
             setFlashMessage('Logged in successfully!');
+            localStorage.setItem('token', data.token);
             navigate('/');
         },
         onError: (error) => {
@@ -27,7 +28,7 @@ export const useRegisterUser = (setName, setEmail, setPassword, setError) => {
         },
     });
 
-    const handleSubmit = (name, email, password) => {
+    const handleSubmit = (name, email, password) => (event) => {
         event.preventDefault();
         if (!name || !email || !password) {
             setError('Please fill out all fields');
