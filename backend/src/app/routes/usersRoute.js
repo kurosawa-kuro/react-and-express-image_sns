@@ -11,7 +11,7 @@ const userRoutes = (app) => {
     // Login a user
     app.post("/login", asyncHandler(loginUserController));
 
-    app.get("/me", asyncHandler(getUserController));
+    app.get("/me", authMiddleware, asyncHandler(getUserController));
 
     // Example of a protected route
     // This route will be accessible only if the user is authenticated

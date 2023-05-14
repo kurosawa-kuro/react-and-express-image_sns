@@ -71,36 +71,5 @@ export const loginUserController = asyncHandler(async (req, res) => {
 
 // クライアントからのトークンを受け取り、デコードしてユーザーを返す
 export const getUserController = asyncHandler(async (req, res) => {
-    // Extract the token from the Authorization header
-    const authHeader = req.headers.authorization;
-
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
-        res.status(401).json({ error: "Authorization token not provided or invalid" });
-        return;
-    }
-
-    const token = authHeader.slice(7);
-
-    if (!token) {
-        res.status(401).json({ error: "No token provided" });
-        return;
-    }
-
-    try {
-        // Verify the token
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-        // Get the user from the database
-        const foundUser = await getUserById(decoded.id);
-        if (!foundUser) {
-            res.status(404).json({ error: "User not found" });
-            return;
-        }
-        // Exclude password from the response
-        const user = { id: foundUser.id, name: foundUser.name, email: foundUser.email };
-
-        res.status(200).json({ user });
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
+    res.status(200).json({ user: req.user });
 });

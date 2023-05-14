@@ -3,11 +3,13 @@
 import jwt from "jsonwebtoken";
 
 export const authMiddleware = (req, res, next) => {
-    if (!req.headers.authorization) {
+    const token = req.cookies['jwt'];
+
+    if (!token) {
         return
     }
 
-    const token = req.headers.authorization.slice(7);
+    // const token = req.headers.authorization.slice(7);
     if (!token) {
         return res.status(401).json({ error: "unauthenticated" });
     }
