@@ -31,6 +31,7 @@ export const registerUserController = asyncHandler(async (req, res) => {
         // Exclude password from the response
         const user = { id: createdUser.id, name: createdUser.name, email: createdUser.email };
 
+        res.cookie("token", token, { httpOnly: true });
         res.status(201).json({ message: "User created", user, token });
     } catch (error) {
         res.status(500).json({ error: error.message });

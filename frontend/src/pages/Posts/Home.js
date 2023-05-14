@@ -8,7 +8,8 @@ import useUserAuthentication from '../../hooks/Auth/useUserAuthentication';
 const Home = () => {
     const isAuthenticated = useUserAuthentication();
     const { search, handleSearchChange } = useSearch();
-    const { data, isLoading, isError, handlePrevious, handleNext, currentPage, totalPages } = useFetchPosts(isAuthenticated, search);
+    const { data, isLoading, isError, handlePrevious, handleNext, currentPage, totalPages } =
+        useFetchPosts(isAuthenticated, search);
     const flashMessage = useFlashMessage();
 
     if (isLoading) return <div>Loading...</div>;

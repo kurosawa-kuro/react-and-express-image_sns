@@ -15,7 +15,7 @@ const Registration = () => {
     return (
         <div className="container">
             <h1>Registration</h1>
-            <form onSubmit={handleSubmit(name, email, password)}>
+            <form onSubmit={(e) => { e.preventDefault(); handleSubmit(name, email, password) }}>
                 <div>
                     <label htmlFor="name">Name:</label>
                     <input

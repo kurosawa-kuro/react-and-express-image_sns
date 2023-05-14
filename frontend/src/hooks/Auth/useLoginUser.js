@@ -13,13 +13,13 @@ export const useLoginUser = (setEmail, setPassword, setError) => {
         onSuccess: (data) => {
             if (data.user && data.user.name) {
                 setUser({ name: data.user.name });
-                localStorage.setItem('user', JSON.stringify({ name: data.user.name }));
+                localStorage.setItem('user', JSON.stringify({ name: data.user.name, email: data.user.email }));
             }
             setEmail('');
             setPassword('');
             setError('');
             setFlashMessage('Logged in successfully!');
-            localStorage.setItem('token', data.token);
+            // Removed token from local storage
             navigate('/');
         },
         onError: (error) => {
