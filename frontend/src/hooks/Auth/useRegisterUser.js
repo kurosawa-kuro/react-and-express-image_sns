@@ -29,6 +29,7 @@ export const useRegisterUser = (setName, setEmail, setPassword, setError) => {
     });
 
     const handleSubmit = (name, email, password) => {
+        event.preventDefault();
         if (!name || !email || !password) {
             setError('Please fill out all fields');
             return;

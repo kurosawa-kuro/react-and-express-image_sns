@@ -4,7 +4,6 @@ import usePagination from '../usePagination';
 import { fetchPosts } from '../../services/api';
 
 export const useFetchPosts = (isAuthenticated, search) => {
-    console.log('useFetchPosts');
     const { currentPage, setCurrentPage, totalPages, setTotalPages } = usePagination();
 
     const handlePrevious = () => {
