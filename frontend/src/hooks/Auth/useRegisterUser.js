@@ -20,7 +20,6 @@ export const useRegisterUser = (setName, setEmail, setPassword, setError) => {
             setPassword('');
             setError('');
             setFlashMessage('Logged in successfully!');
-            localStorage.setItem('token', data.token);
             navigate('/');
         },
         onError: (error) => {

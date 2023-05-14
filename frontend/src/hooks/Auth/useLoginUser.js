@@ -19,7 +19,6 @@ export const useLoginUser = (setEmail, setPassword, setError) => {
             setPassword('');
             setError('');
             setFlashMessage('Logged in successfully!');
-            // Removed token from local storage
             navigate('/');
         },
         onError: (error) => {
