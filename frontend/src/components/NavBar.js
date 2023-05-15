@@ -11,7 +11,6 @@ const NavBar = () => {
         event.preventDefault();
 
         // Remove the token and user from localStorage
-        localStorage.removeItem('token');
         localStorage.removeItem('user');
         setUser(null);
 
